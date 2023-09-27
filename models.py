@@ -1,5 +1,12 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
+load_dotenv()
+import os
+
+
 
 Base = declarative_base()
 
@@ -16,11 +23,10 @@ class News(Base):
     category_id = Column(Integer, foreign_key=True)
     author_id = Column(Integer, foreign_key=True)
 
-
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
-engine = create_engine('postgres:///news_fetcher_db')
+database_url = os.getenv('DATABASE_URL')
+engine = create_engine(database_url)
 Session = sessionmaker(bind=engine)
 session = Session()
+    
+Base.metadata.create_all(engine)
 
