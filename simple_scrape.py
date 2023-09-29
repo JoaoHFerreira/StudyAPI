@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-url = "https://g1.globo.com/fantastico/"
+url = "https://g1.globo.com"
 
 def get_page(url):
     response = requests.get(url)
